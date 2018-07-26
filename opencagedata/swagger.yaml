@@ -1,11 +1,12 @@
 swagger: '2.0'
-schemes: 
+schemes:
   - https
 basePath: /geocode
 info:
-  contact: 
+  contact:
     name: "OpenCage Data Ltd"
     url: https://opencagedata.com/contact
+    email: support@exosite.com
   version: "1"
   termsOfService: https://opencagedata.com/terms
   title: "OpenCage Geocoder"
@@ -21,26 +22,15 @@ externalDocs:
   url: https://opencagedata.com/api
 host: api.opencagedata.com
 consumes:
-  - text/plain
+  - application/x-www-form-urlencoded
 produces:
   - application/json
-  - application/xml
-  - text/html
 paths:
-  /v{version}/{format}:
+  /v1/json:
     get:
+      operationId: query
       description: "geocode a query"
       parameters:
-        - name: version
-          in: path
-          required: true
-          description: "API version."
-          type: integer
-        - name: format
-          in: path
-          required: true
-          description: "format of the response. One of 'json', 'xml' or 'map'."
-          type: string
         - name: q
           in: query
           description: "string or lat,lng to be geocoded."
@@ -57,27 +47,27 @@ paths:
           type: boolean
         - name: add_request
           in: query
-          description: "if true the request is included in the response." 
+          description: "if true the request is included in the response."
           type: boolean
         - name: bounds
           in: query
-          description: "four coordinate points forming the south-west and north-east corners of a bounding box (min long, min lat, max long, max lat)." 
+          description: "four coordinate points forming the south-west and north-east corners of a bounding box (min long, min lat, max long, max lat)."
           type: string
         - name: countrycode
           in: query
-          description: "two letter code ISO 3166-1 Alpha 2 code to limit results to that country." 
+          description: "two letter code ISO 3166-1 Alpha 2 code to limit results to that country."
           type: string
         - name: jsonp
           in: query
-          description: "wraps the returned JSON with a function name." 
+          description: "wraps the returned JSON with a function name."
           type: string
         - name: language
           in: query
-          description: "an IETF format language code (ex: 'es' or 'pt-BR')." 
+          description: "an IETF format language code (ex: 'es' or 'pt-BR')."
           type: string
         - name: limit
           in: query
-          description: "maximum number of results to return. Default is 10. Maximum is 100." 
+          description: "maximum number of results to return. Default is 10. Maximum is 100."
           type: integer
         - name: min_confidence
           in: query
@@ -99,7 +89,7 @@ paths:
           in: query
           description: "when true results are pretty printed. Useful for debugging."
           type: boolean
-          
+
       responses:
         200:
           description: "Successful response"
@@ -109,11 +99,11 @@ paths:
           description: "Invalid request"
           schema:
             $ref: "#/definitions/Response"
-        402: 
+        402:
           description: "Valid request but quota exceeded"
           schema:
             $ref: "#/definitions/Response"
-        403: 
+        403:
           description: "Invalid or missing API key"
           schema:
             $ref: "#/definitions/Response"
@@ -121,7 +111,7 @@ paths:
           description: "Invalid API endpoint"
           schema:
             $ref: "#/definitions/Response"
-        410: 
+        410:
           description: "Request too long"
           schema:
             $ref: "#/definitions/Response"
@@ -129,83 +119,136 @@ paths:
           description: "Internal server error"
           schema:
             $ref: "#/definitions/Response"
+        default:
+          description: "Unknown Error"
+          schema:
+            $ref: "#/definitions/Response"
 definitions:
   Response:
+    type: object
+    description: Response object
     properties:
-      documentation: 
+      documentation:
+        description: Documentation
         type: string
       rate:
+        description: Rate
         type: object
         properties:
-          limit: 
+          limit:
+            description: Limit
             type: integer
           remaining:
+            description: Remaining
             type: integer
-          reset: 
+          reset:
+            description: Reset
             type: integer
       licenses:
+        description: Licenses
         type: array
         items:
+          description: Item
           type: object
           properties:
             name:
+              description: Rate
               type: string
             url:
+              description: URL
               type: string
       status:
+        description: Status
         type: object
         properties:
-          message: 
+          message:
+            description: Message
             type: string
-          code: 
+          code:
+            description: Code
             type: integer
-      total_results: 
+      total_results:
+        description: Total number of results
         type: integer
-      timestamp: 
+      timestamp:
+        description: Timestamp
         type: object
         properties:
-          created_http: 
+          created_http:
+            description: Created http
             type: string
-          created_unix: 
+          created_unix:
+            description: Created Unix
             type: integer
-      stay_informed: 
+      stay_informed:
+        description: Stay informed
         type: object
         properties:
           blog:
+            description: Blog
             type: string
           twitter:
+            description: Twitter
             type: string
-      thanks: 
+      thanks:
+        description: Thanks
         type: string
       results:
+        description: Results
         type: array
         items:
+          description: Item
           type: object
           properties:
             annotations:
+              description: Annotations
               type: object
             bounds:
+              description: Bounds
               type: object
               properties:
                 northeast:
+                  description: Northeast position of bounding box
                   $ref: "#/definitions/LatLng"
                 southwest:
+                  description: Southwest position of bounding box
                   $ref: "#/definitions/LatLng"
             components:
+              description: Components
               type: object
             confidence:
+              description: Confidence
               type: integer
             formatted:
+              description: Formatted
               type: string
             geometry:
+              description: Position
               $ref: "#/definitions/LatLng"
   LatLng:
     type: object
+    description: Latitude longitude coordinates
     properties:
-      lat: 
+      lat:
+        description: Latitude
         type: number
         format: float
-      lng: 
+      lng:
+        description: Longitude
         type: number
         format: float
-        
+
+x-exosite-config-parameters:
+  - name:         key
+    description:  API key
+    type:         string
+    required:     true
+
+parameters:
+  key:
+    name:         key
+    in:           query
+    description:  API key
+    type:         string
+    required:     true
+    x-exosite-restricted: true
