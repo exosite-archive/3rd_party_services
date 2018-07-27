@@ -1,4 +1,4 @@
-# OpenCage GeocoderOpenCage Geocoder
+# OpenCage Geocoder
 
 Worldwide forward and reverse geocoding
 

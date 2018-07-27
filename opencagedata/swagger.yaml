@@ -10,7 +10,11 @@ info:
   version: "1"
   termsOfService: https://opencagedata.com/terms
   title: "OpenCage Geocoder"
-  description: "Worldwide forward and reverse geocoding"
+  description: |
+    Worldwide forward and reverse geocoding from
+    [OpenCage Data](https://opencagedata.com).
+    [Signup at their site](https://opencagedata.com/users/sign_up) and enter
+    the provided API key below.
   x-origin:
     format: swagger
     url: 'https://opencagedata.com/swagger.yaml'
@@ -242,6 +246,7 @@ x-exosite-config-parameters:
   - name:         key
     description:  API key
     type:         string
+    format:       password
     required:     true
 
 parameters:
