@@ -1,0 +1,72 @@
+swagger:  "2.0"
+info:
+  version:      "1.0"
+  title:        Loggly API
+  description:  |
+                ## Unified log analysis & log monitoring
+
+                This is a Murano Service integration with
+                [Loggly](https://www.loggly.com) to allow your Murano solution
+                to send log events.
+                [Signup at their site](https://www.loggly.com/signup/) and
+                enter the provided **Customer token** below.
+  contact:
+    name:       Exosite Support
+    email:      support@exosite.com
+externalDocs:
+  description:  Loggly documentation
+  url:          https://www.loggly.com/docs-index/
+host:     logs-01.loggly.com
+basePath: /
+tags:
+  - name:         Integration
+    description:  Interface to communicate to the Loggly log analysis service
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+
+x-exosite-config-parameters:
+  - name:         token
+    description:  Loggly Customer Token
+    type:         string
+    format:       password
+    required:     true
+
+paths:
+  /inputs/{token}/tag/http/:
+    parameters:
+      - name:         token
+        in:           path
+        description:  Loggly Customer Token
+        type:         string
+        required:     true
+        x-exosite-internal-use: true
+    post:
+      operationId:  log
+      summary:      Send a json log object to Loggly
+      description:  Send a single json payload to Loggly.
+      x-exosite-example: |
+                    --#ENDPOINT GET /log
+                    return Loggly.log(Request)
+      parameters:
+        - name:         body
+          in:           body
+          description:  JSON formatted log object
+          required:     true
+          schema:
+            $ref: "#/definitions/Log"
+      responses:
+        default:
+          description:  Result
+          schema:
+            type:         object
+            description:  Call result
+
+definitions:
+  Log:
+    description: JSON Log Object. This can be any custom structure to be logged.
+    type: object
+    additionalProperties: true

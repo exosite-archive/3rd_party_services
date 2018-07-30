@@ -5,4 +5,4 @@ if [[ "$1" == "" ]]; then
   exit 0
 fi
 
-yaml2json - < $1 | json validate --schema-file schemas/exchangeServiceSchemaDefinition.json --document-file /dev/stdin
+yaml2json - < $1 | tee tmp.json | json validate --schema-file schemas/exchangeServiceSchemaDefinition.json --document-file /dev/stdin

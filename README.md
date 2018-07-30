@@ -6,3 +6,5 @@
 - Depends on yaml2json from: `sudo apt install libghc-yaml-dev`
 
 ./validate
+
+For more descriptive error message in hard cases check: https://jsonschemalint.com/#/version/draft-04/markup/json
