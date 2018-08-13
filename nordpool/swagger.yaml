@@ -21,9 +21,9 @@ info:
 externalDocs:
   description:  Dark Sky documentation
   url:          https://darksky.net/dev/docs
-host:     https://hf00j9q9vk.execute-api.ap-southeast-1.amazonaws.com/dev
+host: hf00j9q9vk.execute-api.ap-southeast-1.amazonaws.com
 # basePath prefixes all resource paths
-basePath: /api/marketdata/page
+basePath: /dev/api/marketdata/page 
 # tags: Categories to be referenced in documentation & marketplace
 tags:
   - name:         Integration
