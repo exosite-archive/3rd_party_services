@@ -16,8 +16,12 @@ info:
 ################################################################################
 
 # A hostname with a valid, signed, and active TSL certificate is required.
-host: chasing-coins.com
+host: example.com
 basePath: /api
+schemes:
+  - https
+produces:
+  - application/json
 
 ################################################################################
 #                                Operations                                    #
