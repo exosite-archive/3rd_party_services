@@ -39,27 +39,29 @@ paths:
         default: # Http status code is not returned to the scripting result
           description: Return the operation result
           schema:
-            description: 'price'
-            type: object
-            properties:
-              change:
-                type: object
-                properties:
-                  hour:
-                    type: string
-                    minLength: 1
-                  day:
-                    type: string
-                    minLength: 1
-                required:
-                - hour
-                - day
-              price:
-                type: string
-                minLength: 1
-              coinheat:
-                type: number
-            required:
-            - change
-            - price
-            - coinheat
+            $ref:       "#/definitions/Price"
+
+definitions:
+  Price:
+    description: 'price'
+    type: object
+    properties:
+      change:
+        description: 'change'
+        $ref: "#/definitions/Change"
+      price:
+        type: string
+        description: 'change'
+      coinheat:
+        type: number
+        description: 'change'
+  Change:
+    description: 'change'
+    type: object
+    properties:
+      hour:
+        type: string
+        description: 'change'
+      day:
+        type: string
+        description: 'change'
