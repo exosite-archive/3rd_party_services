@@ -1,573 +1,67 @@
-swagger: '2.0'
+---
+swagger: "2.0"
 info:
   description: Nordpool market hourly price API
   version: 0.3.0
   title: Nordpool Hourly price API
-  termsOfService: 'https://hf00j9q9vk.execute-api.ap-southeast-1.amazonaws.com/terms-of-service'
+  termsOfService: https://hf00j9q9vk.execute-api.ap-southeast-1.amazonaws.com/terms-of-service
   contact:
     name: API Team
-    url: 'https://hf00j9q9vk.execute-api.ap-southeast-1.amazonaws.com/contact'
-    email: missing@missing
+    url: https://hf00j9q9vk.execute-api.ap-southeast-1.amazonaws.com/contact
+    email: missing@missing.com
 host: hf00j9q9vk.execute-api.ap-southeast-1.amazonaws.com
 basePath: /dev/api/marketdata/page
 schemes:
-  - https
+- https
 paths:
   /10:
     get:
       summary: Get hourly pricing data
+      description: Get Hourly pricing data
       operationId: getHourly
       produces:
-        - application/json; charset=utf-8
+      - application/json
+      parameters:
+      - name: content-type
+        in: header
+        description: content-type
+        default: application/json
+        type: string
+      - name: currency
+        in: query
+        type: string
+        description: currency to use
+        default: EUR
+      - name: endDate
+        in: query
+        type: string
+        description: Day to get data for, dd-mm-yyy format
+        required: true
       responses:
-        '200':
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        200:
           description: OK
           schema:
-            description: ''
-            type: object
-            properties:
-              data:
-                type: object
-                properties:
-                  Rows:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - Name
-                        - StartTime
-                        - EndTime
-                        - DateTimeForData
-                        - DayNumber
-                        - StartTimeDate
-                        - IsExtraRow
-                        - IsNtcRow
-                        - EmptyValue
-                      properties:
-                        Columns:
-                          type: array
-                          uniqueItems: true
-                          minItems: 1
-                          items:
-                            required:
-                              - Index
-                              - Scale
-                              - IsDominatingDirection
-                              - IsValid
-                              - IsAdditionalData
-                              - Behavior
-                              - Name
-                              - Value
-                              - GroupHeader
-                              - DisplayNegativeValueInBlue
-                              - CombinedName
-                              - DateTimeForData
-                              - DisplayName
-                              - DisplayNameOrDominatingDirection
-                              - IsOfficial
-                              - UseDashDisplayStyle
-                            properties:
-                              Index:
-                                type: number
-                              Scale:
-                                type: number
-                              SecondaryValue: {}
-                              IsDominatingDirection:
-                                type: boolean
-                              IsValid:
-                                type: boolean
-                              IsAdditionalData:
-                                type: boolean
-                              Behavior:
-                                type: number
-                              Name:
-                                type: string
-                                minLength: 1
-                              Value:
-                                type: string
-                                minLength: 1
-                              GroupHeader:
-                                type: string
-                              DisplayNegativeValueInBlue:
-                                type: boolean
-                              CombinedName:
-                                type: string
-                                minLength: 1
-                              DateTimeForData:
-                                type: string
-                                minLength: 1
-                              DisplayName:
-                                type: string
-                                minLength: 1
-                              DisplayNameOrDominatingDirection:
-                                type: string
-                                minLength: 1
-                              IsOfficial:
-                                type: boolean
-                              UseDashDisplayStyle:
-                                type: boolean
-                        Name:
-                          type: string
-                          minLength: 1
-                        StartTime:
-                          type: string
-                          minLength: 1
-                        EndTime:
-                          type: string
-                          minLength: 1
-                        DateTimeForData:
-                          type: string
-                          minLength: 1
-                        DayNumber:
-                          type: number
-                        StartTimeDate:
-                          type: string
-                          minLength: 1
-                        IsExtraRow:
-                          type: boolean
-                        IsNtcRow:
-                          type: boolean
-                        EmptyValue:
-                          type: string
-                        Parent: {}
-                  IsDivided:
-                    type: boolean
-                  SectionNames:
-                    type: array
-                    items:
-                      properties: {}
-                  EntityIDs:
-                    type: array
-                    items:
-                      properties: {}
-                  DataStartdate:
-                    type: string
-                    minLength: 1
-                  DataEnddate:
-                    type: string
-                    minLength: 1
-                  AreaChanges:
-                    type: array
-                    items:
-                      properties: {}
-                  Units:
-                    type: array
-                    items:
-                      properties: {}
-                  LatestResultDate:
-                    type: string
-                    minLength: 1
-                  ContainsPreliminaryValues:
-                    type: boolean
-                  ContainsExchangeRates:
-                    type: boolean
-                  ExchangeRateOfficial:
-                    type: string
-                  ExchangeRatePreliminary:
-                    type: string
-                  ExchangeUnit: {}
-                  DateUpdated:
-                    type: string
-                    minLength: 1
-                  CombinedHeadersEnabled:
-                    type: boolean
-                  DataType:
-                    type: number
-                  TimeZoneInformation:
-                    type: number
-                required:
-                  - Rows
-                  - IsDivided
-                  - SectionNames
-                  - EntityIDs
-                  - DataStartdate
-                  - DataEnddate
-                  - AreaChanges
-                  - Units
-                  - LatestResultDate
-                  - ContainsPreliminaryValues
-                  - ContainsExchangeRates
-                  - ExchangeRateOfficial
-                  - ExchangeRatePreliminary
-                  - DateUpdated
-                  - CombinedHeadersEnabled
-                  - DataType
-                  - TimeZoneInformation
-              cacheKey:
-                type: string
-                minLength: 1
-              conf:
-                type: object
-                properties:
-                  Id:
-                    type: string
-                    minLength: 1
-                  Name: {}
-                  Published:
-                    type: string
-                    minLength: 1
-                  ShowGraph:
-                    type: boolean
-                  ResolutionPeriod:
-                    type: object
-                    properties:
-                      Id:
-                        type: string
-                        minLength: 1
-                      Resolution:
-                        type: number
-                      Unit:
-                        type: number
-                      PeriodNumber:
-                        type: number
-                    required:
-                      - Id
-                      - Resolution
-                      - Unit
-                      - PeriodNumber
-                  ResolutionPeriodY:
-                    type: object
-                    properties:
-                      Id:
-                        type: string
-                        minLength: 1
-                      Resolution:
-                        type: number
-                      Unit:
-                        type: number
-                      PeriodNumber:
-                        type: number
-                    required:
-                      - Id
-                      - Resolution
-                      - Unit
-                      - PeriodNumber
-                  Entities:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - SecondaryProductBehavior
-                        - Id
-                        - Name
-                        - GroupHeader
-                        - DataUpdated
-                        - Drillable
-                        - Index
-                        - IndexForColumn
-                        - MinMaxDisabled
-                        - DisableNumberGroupSeparator
-                        - SecondaryTimeserieID
-                        - HasPreliminary
-                        - Scale
-                        - SecondaryScale
-                        - DataType
-                        - SecondaryDataType
-                        - LastUpdate
-                        - Unit
-                        - IsDominatingDirection
-                        - DisplayAsSeparatedColumn
-                        - EnableInChart
-                        - BlueNegativeValues
-                      properties:
-                        ProductType:
-                          type: object
-                          properties:
-                            Id:
-                              type: string
-                              minLength: 1
-                            Attributes:
-                              type: array
-                              uniqueItems: true
-                              minItems: 1
-                              items:
-                                required:
-                                  - Id
-                                  - Name
-                                  - Role
-                                  - HasRoles
-                                properties:
-                                  Id:
-                                    type: string
-                                    minLength: 1
-                                  Name:
-                                    type: string
-                                    minLength: 1
-                                  Role:
-                                    type: string
-                                  HasRoles:
-                                    type: boolean
-                                  Values:
-                                    type: array
-                                    items:
-                                      properties: {}
-                            Name:
-                              type: string
-                              minLength: 1
-                            DisplayName:
-                              type: string
-                              minLength: 1
-                          required:
-                            - Id
-                            - Attributes
-                            - Name
-                            - DisplayName
-                        SecondaryProductType:
-                          type: object
-                          properties:
-                            Id:
-                              type: string
-                              minLength: 1
-                            Attributes: {}
-                            Name:
-                              type: string
-                              minLength: 1
-                            DisplayName:
-                              type: string
-                              minLength: 1
-                          required:
-                            - Id
-                            - Name
-                            - DisplayName
-                        SecondaryProductBehavior:
-                          type: number
-                        Id:
-                          type: string
-                          minLength: 1
-                        Name:
-                          type: string
-                          minLength: 1
-                        GroupHeader:
-                          type: string
-                        DataUpdated:
-                          type: string
-                          minLength: 1
-                        Attributes:
-                          type: array
-                          uniqueItems: true
-                          minItems: 1
-                          items:
-                            required:
-                              - Id
-                              - Name
-                              - HasRoles
-                              - Role
-                              - Value
-                            properties:
-                              Id:
-                                type: string
-                                minLength: 1
-                              Name:
-                                type: string
-                                minLength: 1
-                              HasRoles:
-                                type: boolean
-                              Role:
-                                type: string
-                              Value:
-                                type: string
-                                minLength: 1
-                        Drillable:
-                          type: boolean
-                        DateRanges:
-                          type: array
-                          items:
-                            properties: {}
-                        Index:
-                          type: number
-                        IndexForColumn:
-                          type: number
-                        MinMaxDisabled:
-                          type: boolean
-                        DisableNumberGroupSeparator:
-                          type: number
-                        TimeserieID: {}
-                        SecondaryTimeserieID:
-                          type: string
-                          minLength: 1
-                        HasPreliminary:
-                          type: boolean
-                        TimeseriePreliminaryID: {}
-                        Scale:
-                          type: number
-                        SecondaryScale:
-                          type: number
-                        DataType:
-                          type: number
-                        SecondaryDataType:
-                          type: number
-                        LastUpdate:
-                          type: string
-                          minLength: 1
-                        Unit:
-                          type: string
-                          minLength: 1
-                        IsDominatingDirection:
-                          type: boolean
-                        DisplayAsSeparatedColumn:
-                          type: boolean
-                        EnableInChart:
-                          type: boolean
-                        BlueNegativeValues:
-                          type: boolean
-                  TableType:
-                    type: number
-                  ExtraRows:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - Id
-                        - Header
-                      properties:
-                        Id:
-                          type: string
-                          minLength: 1
-                        Header:
-                          type: string
-                          minLength: 1
-                        ColumnProducts:
-                          type: array
-                          items:
-                            properties: {}
-                  Filters:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - Id
-                        - AttributeName
-                        - DefaultValue
-                      properties:
-                        Id:
-                          type: string
-                          minLength: 1
-                        AttributeName:
-                          type: string
-                          minLength: 1
-                        Values:
-                          type: array
-                          items:
-                            properties: {}
-                        DefaultValue:
-                          type: string
-                          minLength: 1
-                  IsDrillDownEnabled:
-                    type: boolean
-                  DrillDownMode:
-                    type: number
-                  IsMinValueEnabled:
-                    type: boolean
-                  IsMaxValueEnabled:
-                    type: boolean
-                  ValidYearsBack:
-                    type: number
-                  IsNtcEnabled:
-                    type: boolean
-                  NtcProductType:
-                    type: object
-                    properties:
-                      Id:
-                        type: string
-                        minLength: 1
-                      Attributes: {}
-                      Name:
-                        type: string
-                        minLength: 1
-                      DisplayName:
-                        type: string
-                        minLength: 1
-                    required:
-                      - Id
-                      - Name
-                      - DisplayName
-                  NtcHeader:
-                    type: string
-                  ShowTimelineGraph:
-                    type: number
-                  ExchangeMode:
-                    type: number
-                  IsPivotTable:
-                    type: number
-                  IsCombinedHeadersEnabled:
-                    type: number
-                  NtcFormat:
-                    type: number
-                  DisplayHourAlsoInUKTime:
-                    type: boolean
-                required:
-                  - Id
-                  - Published
-                  - ShowGraph
-                  - ResolutionPeriod
-                  - ResolutionPeriodY
-                  - Entities
-                  - TableType
-                  - ExtraRows
-                  - Filters
-                  - IsDrillDownEnabled
-                  - DrillDownMode
-                  - IsMinValueEnabled
-                  - IsMaxValueEnabled
-                  - ValidYearsBack
-                  - IsNtcEnabled
-                  - NtcProductType
-                  - NtcHeader
-                  - ShowTimelineGraph
-                  - ExchangeMode
-                  - IsPivotTable
-                  - IsCombinedHeadersEnabled
-                  - NtcFormat
-                  - DisplayHourAlsoInUKTime
-              header:
-                type: object
-                properties:
-                  title:
-                    type: string
-                    minLength: 1
-                  description:
-                    type: string
-                    minLength: 1
-                  questionMarkInfo:
-                    type: string
-                    minLength: 1
-                required:
-                  - title
-                  - description
-                  - questionMarkInfo
-              endDate:
-                type: string
-                minLength: 1
-              currency:
-                type: string
-                minLength: 1
-              pageId:
-                type: number
-            required:
-              - data
-              - cacheKey
-              - conf
-              - header
-              - endDate
-              - currency
-              - pageId
-      parameters:
-        - name: content-type
-          in: header
-          description: ''
-          default: 'application/json'
-          type: string
-        - name: currency
-          in: query
-          type: string
-          description: currency to use
-          default: EUR
-        - name: endDate
-          in: query
-          type: string
-          description: Day to get data for, dd-mm-yyy format
-          required: true
+            $ref: '#/definitions/SuccessResponse'
+      security:
+      - Bearer: []
+definitions:
+  SuccessResponse:
+    description: SuccessResponse
+    type: object
+  ErrorResponse:
+    description: Request error
+    type: object
+    properties:
+      error:
+        type: string
+        description: Error message
+      status:
+        type: integer
+        description: Response code
+      type:
+        type: string
+        description: Error type
