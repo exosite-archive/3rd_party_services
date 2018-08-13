@@ -1,0 +1,65 @@
+swagger: "2.0"
+
+################################################################################
+#                           Service Metadata                                   #
+################################################################################
+info:
+  version: "0.1"
+  title: Chasing Coins
+  description: Crypto currency pricing api via Chasing Coins
+  contact:
+    name:       Exosite Support
+    email:      support@exosite.com
+
+################################################################################
+#                            API Information                                   #
+################################################################################
+
+# A hostname with a valid, signed, and active TSL certificate is required.
+host: chasing-coins.com
+basePath: /api
+schemes:
+  - https
+produces:
+  - application/json
+
+################################################################################
+#                                Operations                                    #
+################################################################################
+paths:
+  /v1/std/coin/ETH:
+    get:
+      summary: get price of Ethereum
+      description: Get the current price of Ethereum
+      operationId: ethereumPrice # Used as Scripting function call
+      x-exosite-example: >
+
+                  local result = ChasingCoins.ethereumPrice()
+      responses:
+        default: # Http status code is not returned to the scripting result
+          description: Return the operation result
+          schema:
+            description: 'price'
+            type: object
+            properties:
+              change:
+                type: object
+                properties:
+                  hour:
+                    type: string
+                    minLength: 1
+                  day:
+                    type: string
+                    minLength: 1
+                required:
+                - hour
+                - day
+              price:
+                type: string
+                minLength: 1
+              coinheat:
+                type: number
+            required:
+            - change
+            - price
+            - coinheat
