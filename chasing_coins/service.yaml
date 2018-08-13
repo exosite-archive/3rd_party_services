@@ -16,7 +16,7 @@ info:
 ################################################################################
 
 # A hostname with a valid, signed, and active TSL certificate is required.
-host: ildurbprzl.execute-api.ap-southeast-1.amazonaws.com
+host: exam-ple.com
 basePath: /dev/api
 schemes:
   - https
