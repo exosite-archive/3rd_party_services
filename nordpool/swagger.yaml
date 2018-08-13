@@ -21,7 +21,7 @@ info:
 externalDocs:
   description:  Dark Sky documentation
   url:          https://darksky.net/dev/docs
-host:     www.nordpoolspot.com
+host:     https://hf00j9q9vk.execute-api.ap-southeast-1.amazonaws.com/dev
 # basePath prefixes all resource paths
 basePath: /api/marketdata/page
 # tags: Categories to be referenced in documentation & marketplace
